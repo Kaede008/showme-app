@@ -38,6 +38,7 @@
 import _ from "lodash";
 
 import { groups as g, players as p } from "../config";
+import { wss } from "../client_websocket";
 
 const PLAYER_KEY = "players";
 
@@ -90,13 +91,20 @@ export default {
     }
 
     // 接收 admin 页面的通信
-    window.addEventListener("storage", e => {
-      console.log(e);
-      if (e.key == "playerId") {
-        const playerId = localStorage.getItem("playerId");
-        this.player = this.players.find(p => p.id == playerId);
+    wss.onmessage = res => {
+      console.log(res.data);
+      const { type } = JSON.parse(res.data);
+      if (type == "player") {
+        const { id } = JSON.parse(res.data);
+        this.player = this.players.find(p => p.id == id);
       }
-    });
+
+      if (type == "score") {
+        const { id, score } = JSON.parse(res.data);
+        this.players.find(p => p.id == id).score = score;
+        window.localStorage.setItem(PLAYER_KEY, JSON.stringify(this.players));
+      }
+    };
   },
 };
 </script>
