@@ -1,17 +1,17 @@
 <template>
   <main>
     <div class="container" v-if="isPlayer">
-      <div class="avatar">
+      <!-- <div class="avatar">
         <img src="images/avatar.jpg" alt="" />
-      </div>
-      <h1>姓名: {{ player.name }}</h1>
-      <h2>{{ player.groupName }}</h2>
+      </div> -->
+      <h1>{{ player.groupName }}</h1>
+      <h1>{{ player.name }}</h1>
       <p class="score">最终得分：{{ player.score }}</p>
       <input class="score-input" @keyup.enter="handleInput" />
     </div>
 
     <div class="group-container" v-if="!isPlayer">
-      <h1 class="title">各个队伍得分情况</h1>
+      <h2 class="title">各个队伍得分情况</h2>
       <div class="group" v-for="group in orderedGroups" :key="group.groupName">
         {{ group.groupName }}: {{ group.groupScore }}
       </div>
@@ -66,6 +66,7 @@ export default {
     },
     clickPlayer(player) {
       this.player = player;
+      this.isPlayer = true;
     },
     toggle() {
       _.forEach(this.groups, group => {
@@ -104,12 +105,16 @@ export default {
         this.players.find(p => p.id == id).score = score;
         window.localStorage.setItem(PLAYER_KEY, JSON.stringify(this.players));
       }
+
+      if (type == "toggle") {
+        this.toggle();
+      }
     };
   },
 };
 </script>
 
-<style>
+<style scoped>
 * {
   box-sizing: border-box;
   margin: 0;
@@ -123,15 +128,22 @@ main {
   display: grid;
   align-items: center;
   justify-items: center;
-  background: rgb(203, 210, 240);
+  /* background: rgb(203, 210, 240); */
+  background-image: url("../../public/images/bg2.jpg");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
 }
 
 main .bottom {
   align-self: end;
   text-align: center;
-  color: #414873;
+  color: transparent;
   font-size: 14px;
   display: flex;
+}
+main .bottom:hover {
+  color: #414873;
 }
 
 main .bottom .group {
@@ -144,7 +156,7 @@ main .bottom .group .player {
 
 .container {
   width: 60%;
-  max-width: 500px;
+  max-width: 750px;
   box-shadow: 0 0 24px rgba(0, 0, 0, 0.15);
   border-radius: 24px;
   padding: 48px 28px;
@@ -152,6 +164,12 @@ main .bottom .group .player {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.container h1 {
+  margin: 20px 0 10px 0;
+  font-size: 48px;
+  color: #414873;
 }
 
 .title {
@@ -180,7 +198,7 @@ main .bottom .group .player {
 
 h1 {
   margin: 20px 0 10px 0;
-  font-size: 28px;
+  font-size: 48px;
   color: #414873;
 }
 
