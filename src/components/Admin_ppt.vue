@@ -1,35 +1,34 @@
 <!--  -->
 <template>
   <main>
-    <div class="container">
+    <!-- <div class="container">
       {{ content }}
-    </div>
+    </div> -->
+    <textarea class="container" rows="40" placeholder="输入内容"></textarea>
   </main>
 </template>
 
 <script>
-import { wss } from "../client_websocket";
+import { wss } from "../admin_websocket";
 
 export default {
-  name: "Ppt",
+  name: "Admin_ppt",
   components: {},
   data() {
     return {
       content: "",
     };
   },
-  mounted() {
-    // 接收页面通信
-    wss.onmessage = res => {
-      console.log(res.data);
-      const { type } = JSON.parse(res.data);
-      if (type == "ppt") {
-        const { content } = JSON.parse(res.data);
-        this.content = content;
-      }
-    };
+  mounted() {},
+  methods: {
+    send_content() {
+      const data = {
+        type: "ppt",
+        content: this.content,
+      };
+      wss.send(JSON.stringify(data));
+    },
   },
-  methods: {},
 };
 </script>
 <style scoped>
@@ -62,7 +61,7 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-size: 60px;
+  font-size: 14px;
   color: #414873;
 }
 </style>

@@ -9,7 +9,7 @@
       <p class="score">最终得分：{{ player.score }}</p>
       <input class="score-input" @keyup.enter="handleInput" placeholder="点击输入当前选手得分" />
     </div>
-    <!-- <button @click="onclick">点我</button> -->
+    <button @click="onclick">点我</button>
     <!-- <div></div> -->
     <div class="bottom">
       <div class="group" v-for="group in groups" :key="group.groupName">
@@ -48,9 +48,13 @@ export default {
     clickPlayer(player) {
       this.player = player;
       const playerId = player.id;
+      // const data = {
+      //   type: "player",
+      //   id: playerId,
+      // };
       const data = {
-        type: "player",
-        id: playerId,
+        type: "ppt",
+        content: "一段文字讯息",
       };
       wss.send(JSON.stringify(data));
     },
