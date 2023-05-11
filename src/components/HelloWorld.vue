@@ -11,9 +11,9 @@
     </div>
 
     <div class="group-container" v-if="!isPlayer">
-      <h2 class="title">各个队伍得分情况</h2>
-      <div class="group" v-for="group in orderedGroups" :key="group.groupName">
-        {{ group.groupName }}: {{ group.groupScore }}
+      <h2 class="title">{{ groupTitle }}各个队伍得分情况</h2>
+      <div class="group" v-for="(group, index) in orderedGroups" :key="group.groupName">
+        {{ index + 1 }}、 {{ group.groupName }}: {{ group.groupScore }}
       </div>
     </div>
 
@@ -28,6 +28,9 @@
       </div>
       <div class="group">
         <p class="player" @click="toggle">切换显示</p>
+        <p class="player" @click="firstPart">第一环节</p>
+        <p class="player" @click="secondPart">第二环节</p>
+        <p class="player" @click="thirdPart">第三环节</p>
       </div>
     </div>
   </main>
@@ -50,11 +53,13 @@ export default {
   },
   data() {
     return {
-      player: { id: 0, name: "", groupId: 0, score: 0, part: "" },
+      // player: { id: 0, name: "", groupId: 0, score: 0, part: "" },
+      player: p[0],
       isPlayer: true,
       players: p,
       groups: g,
       orderedGroups: g,
+      groupTitle: "",
     };
   },
   methods: {
@@ -72,11 +77,49 @@ export default {
       _.forEach(this.groups, group => {
         group.groupScore = 0;
         _.forEach(this.players, player => {
-          if (group.groupId == player.groupId) group.groupScore = parseInt(group.groupScore) + parseInt(player.score);
+          if (group.groupId == player.groupId)
+            group.groupScore = parseFloat(group.groupScore) + parseFloat(player.score);
         });
       });
       this.orderedGroups = _.orderBy(this.groups, ["groupScore"], ["desc"]);
+      this.groupTitle = "";
       this.isPlayer = !this.isPlayer;
+    },
+    firstPart() {
+      _.forEach(this.players, player => {
+        if (player.part == "第一环节") {
+          _.forEach(this.groups, group => {
+            if (player.groupId == group.groupId) group.groupScore = parseFloat(player.score);
+          });
+        }
+      });
+      this.orderedGroups = _.orderBy(this.groups, ["groupScore"], ["desc"]);
+      this.groupTitle = "第一环节";
+      this.isPlayer = false;
+    },
+    secondPart() {
+      _.forEach(this.players, player => {
+        if (player.part == "第二环节") {
+          _.forEach(this.groups, group => {
+            if (player.groupId == group.groupId) group.groupScore = parseFloat(player.score);
+          });
+        }
+      });
+      this.orderedGroups = _.orderBy(this.groups, ["groupScore"], ["desc"]);
+      this.groupTitle = "第二环节";
+      this.isPlayer = false;
+    },
+    thirdPart() {
+      _.forEach(this.players, player => {
+        if (player.part == "第三环节") {
+          _.forEach(this.groups, group => {
+            if (player.groupId == group.groupId) group.groupScore = parseFloat(player.score);
+          });
+        }
+      });
+      this.orderedGroups = _.orderBy(this.groups, ["groupScore"], ["desc"]);
+      this.groupTitle = "第三环节";
+      this.isPlayer = false;
     },
   },
   mounted() {
@@ -86,9 +129,9 @@ export default {
       this.players = JSON.parse(window.localStorage.getItem(PLAYER_KEY));
     } else {
       console.log("不存在数据");
-      // _.forEach(this.players, player => {
-      //   player.score = _.random(30);
-      // });
+      _.forEach(this.players, player => {
+        player.score = _.random(30);
+      });
     }
 
     // 接收 admin 页面的通信
@@ -144,6 +187,8 @@ main .bottom {
 }
 main .bottom:hover {
   color: #414873;
+  box-shadow: 0 0 24px rgba(0, 0, 0, 0.15);
+  background-color: rgba(245, 246, 252, 0.7);
 }
 
 main .bottom .group {
@@ -154,7 +199,12 @@ main .bottom .group .player {
   cursor: pointer;
 }
 
+main .bottom .group .player:hover {
+  text-decoration: underline;
+}
+
 .container {
+  margin-top: 100px;
   width: 60%;
   max-width: 750px;
   box-shadow: 0 0 24px rgba(0, 0, 0, 0.15);
