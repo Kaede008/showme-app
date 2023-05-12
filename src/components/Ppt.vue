@@ -1,7 +1,7 @@
 <!--  -->
 <template>
   <main>
-    <div class="container">
+    <div id="container">
       {{ content }}
     </div>
   </main>
@@ -16,16 +16,24 @@ export default {
   data() {
     return {
       content: "",
+      timer: null
     };
   },
   mounted() {
     // 接收页面通信
     wss.onmessage = res => {
-      console.log(res.data);
+      clearInterval(this.timer)
       const { type } = JSON.parse(res.data);
       if (type == "ppt") {
         const { content } = JSON.parse(res.data);
         this.content = content;
+        const container = document.querySelector("#container")
+        const height = container.clientHeight
+        let top = 0
+       this.timer = setInterval(() => {
+          if (window.scrollY >= height) window.scrollY = 0
+          else window.scrollTo({top: top++})
+        }, 30);
       }
     };
   },
@@ -52,7 +60,7 @@ main {
   background-size: cover;
 }
 
-.container {
+#container {
   width: 90%;
   max-width: 2000px;
   box-shadow: 0 0 24px rgba(0, 0, 0, 0.15);
