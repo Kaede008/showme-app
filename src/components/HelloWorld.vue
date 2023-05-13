@@ -30,7 +30,7 @@
         <p class="player" @click="toggle">总得分</p>
         <p class="player" @click="firstPart">第一环节</p>
         <p class="player" @click="secondPart">第二环节</p>
-        <p class="player" @click="firstSecondePart">一、二环节</p>
+        <p class="player" @click="firstSecondePart">第一、第二环节</p>
         <p class="player" @click="thirdPart">第三环节</p>
       </div>
     </div>
