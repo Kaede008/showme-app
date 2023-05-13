@@ -32,7 +32,7 @@ const players = [
   { id: 16, name: "胡慧宣", groupName: "马村港海关队", groupId: 6, score: 0, part: "第一环节" },
   { id: 17, name: "林详松", groupName: "马村港海关队", groupId: 6, score: 0, part: "第二环节" },
   { id: 18, name: "张丹", groupName: "马村港海关队", groupId: 6, score: 0, part: "第三环节" },
-  { id: 19, name: "吴多丰", groupName: "事业单位联合队", groupId: 7, score: 0, part: "第一环节" },
+  { id: 19, name: "蒙威任", groupName: "事业单位联合队", groupId: 7, score: 0, part: "第一环节" },
   { id: 20, name: "黄杰英", groupName: "事业单位联合队", groupId: 7, score: 0, part: "第二环节" },
   { id: 21, name: "万培弟", groupName: "事业单位联合队", groupId: 7, score: 0, part: "第三环节" },
   { id: 22, name: "吴琪", groupName: "八所海关队", groupId: 8, score: 0, part: "第一环节" },
