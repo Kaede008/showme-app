@@ -65,7 +65,7 @@ export default {
   },
   methods: {
     handleInput(event) {
-      this.player.score = event.target.value;
+      this.player.score = _.floor(event.target.value, 2);
       event.target.value = "";
       window.localStorage.setItem(PLAYER_KEY, JSON.stringify(this.players));
       event.target.blur();
