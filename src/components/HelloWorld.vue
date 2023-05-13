@@ -11,7 +11,7 @@
     </div>
 
     <div class="group-container" v-if="!isPlayer">
-      <h2 class="title">{{ groupTitle }}各个队伍得分情况</h2>
+      <h2 class="title">{{ groupTitle }}得分排名</h2>
       <div class="group" v-for="(group, index) in orderedGroups" :key="group.groupName">
         {{ index + 1 }}、 {{ group.groupName }}: {{ group.groupScore }}
       </div>
@@ -27,9 +27,10 @@
         </template>
       </div>
       <div class="group">
-        <p class="player" @click="toggle">切换显示</p>
+        <p class="player" @click="toggle">总得分</p>
         <p class="player" @click="firstPart">第一环节</p>
         <p class="player" @click="secondPart">第二环节</p>
+        <p class="player" @click="firstSecondePart">一、二环节</p>
         <p class="player" @click="thirdPart">第三环节</p>
       </div>
     </div>
@@ -78,12 +79,12 @@ export default {
         group.groupScore = 0;
         _.forEach(this.players, player => {
           if (group.groupId == player.groupId)
-            group.groupScore = parseFloat(group.groupScore) + parseFloat(player.score);
+            group.groupScore = _.floor(parseFloat(group.groupScore) + parseFloat(player.score), 2);
         });
       });
       this.orderedGroups = _.orderBy(this.groups, ["groupScore"], ["desc"]);
-      this.groupTitle = "";
-      this.isPlayer = !this.isPlayer;
+      this.groupTitle = "总得分";
+      this.isPlayer = false;
     },
     firstPart() {
       _.forEach(this.players, player => {
@@ -109,6 +110,18 @@ export default {
       this.groupTitle = "第二环节";
       this.isPlayer = false;
     },
+    firstSecondePart() {
+      _.forEach(this.groups, group => {
+        group.groupScore = 0;
+        _.forEach(this.players, player => {
+          if (group.groupId == player.groupId && (player.part == "第一环节" || player.part == "第二环节"))
+            group.groupScore = _.floor(parseFloat(group.groupScore) + parseFloat(player.score), 2);
+        });
+      });
+      this.groupTitle = "一、二环节";
+      this.orderedGroups = _.orderBy(this.groups, ["groupScore"], ["desc"]);
+      this.isPlayer = false;
+    },
     thirdPart() {
       _.forEach(this.players, player => {
         if (player.part == "第三环节") {
@@ -129,9 +142,9 @@ export default {
       this.players = JSON.parse(window.localStorage.getItem(PLAYER_KEY));
     } else {
       console.log("不存在数据");
-      _.forEach(this.players, player => {
-        player.score = _.random(30);
-      });
+      // _.forEach(this.players, player => {
+      //   player.score = _.floor(_.random(10.0, 30.0, true), 2);
+      // });
     }
 
     // 接收 admin 页面的通信

@@ -4,7 +4,7 @@
     <!-- <div class="container">
       {{ content }}
     </div> -->
-    <textarea v-model="content" class="container" rows="40" placeholder="输入内容"></textarea>
+    <textarea v-model="content" class="container" rows="30" placeholder="输入内容"></textarea>
     <button @click="send_content" class="btn">发送</button>
   </main>
 </template>

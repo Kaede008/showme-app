@@ -1,6 +1,6 @@
 const groups = [
   // { groupId: 0, groupName: "", groupScore: 0 },
-  { groupId: 1, groupName: "机关联队", groupScore: 0 },
+  { groupId: 1, groupName: "机关联合队", groupScore: 0 },
   { groupId: 2, groupName: "洋浦海关队", groupScore: 0 },
   { groupId: 3, groupName: "海口美兰机场海关队", groupScore: 0 },
   { groupId: 4, groupName: "椰城海关队", groupScore: 0 },
@@ -9,14 +9,14 @@ const groups = [
   { groupId: 7, groupName: "事业单位联合队", groupScore: 0 },
   { groupId: 8, groupName: "八所海关队", groupScore: 0 },
   { groupId: 9, groupName: "海口港海关队", groupScore: 0 },
-  { groupId: 10, groupName: "文昌海关、博鳌机场海关联合队", groupScore: 0 },
+  { groupId: 10, groupName: "博鳌机场海关、文昌海关联合队", groupScore: 0 },
 ];
 
 const players = [
   { id: 0, name: "", groupId: 0, score: 0, part: "", groupName: "比赛准备开始" },
-  { id: 1, name: "杜婉婧（教育处）", groupName: "机关联队", groupId: 1, score: 0, part: "第一环节" },
-  { id: 2, name: "冯尔策（口岸监管处）", groupName: "机关联队", groupId: 1, score: 0, part: "第二环节" },
-  { id: 3, name: "陈瑛琦（统计处）", groupName: "机关联队", groupId: 1, score: 0, part: "第三环节" },
+  { id: 1, name: "杜婉婧（教育处）", groupName: "机关联合队", groupId: 1, score: 0, part: "第一环节" },
+  { id: 2, name: "冯尔策（口岸监管处）", groupName: "机关联合队", groupId: 1, score: 0, part: "第二环节" },
+  { id: 3, name: "陈瑛琦（统计处）", groupName: "机关联合队", groupId: 1, score: 0, part: "第三环节" },
   { id: 4, name: "张绮", groupName: "洋浦海关队", groupId: 2, score: 0, part: "第一环节" },
   { id: 5, name: "陈家蕙", groupName: "洋浦海关队", groupId: 2, score: 0, part: "第二环节" },
   { id: 6, name: "周爱玉", groupName: "洋浦海关队", groupId: 2, score: 0, part: "第三环节" },
@@ -44,7 +44,7 @@ const players = [
   {
     id: 28,
     name: "黄功（文昌海关）",
-    groupName: "文昌海关、博鳌机场海关联合队",
+    groupName: "博鳌机场海关、文昌海关联合队",
     groupId: 10,
     score: 0,
     part: "第一环节",
@@ -52,7 +52,7 @@ const players = [
   {
     id: 29,
     name: "纪冰冰（文昌海关）",
-    groupName: "文昌海关、博鳌机场海关联合队",
+    groupName: "博鳌机场海关、文昌海关联合队",
     groupId: 10,
     score: 0,
     part: "第二环节",
@@ -60,7 +60,7 @@ const players = [
   {
     id: 30,
     name: "李鸿浩（博鳌机场海关）",
-    groupName: "文昌海关、博鳌机场海关联合队",
+    groupName: "博鳌机场海关、文昌海关联合队",
     groupId: 10,
     score: 0,
     part: "第三环节",

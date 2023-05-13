@@ -16,24 +16,28 @@ export default {
   data() {
     return {
       content: "",
-      timer: null
+      intervalTimer: null,
+      timeoutTimer: null,
     };
   },
   mounted() {
     // 接收页面通信
     wss.onmessage = res => {
-      clearInterval(this.timer)
+      clearInterval(this.intervalTimer);
+      clearTimeout(timeoutTimer);
       const { type } = JSON.parse(res.data);
       if (type == "ppt") {
         const { content } = JSON.parse(res.data);
         this.content = content;
-        const container = document.querySelector("#container")
-        const height = container.clientHeight
-        let top = 0
-       this.timer = setInterval(() => {
-          if (window.scrollY >= height) window.scrollY = 0
-          else window.scrollTo({top: top++})
-        }, 30);
+        const container = document.querySelector("#container");
+        const height = container.clientHeight;
+        let top = 0;
+        timeoutTimer = setTimeout(() => {
+          this.intervalTimer = setInterval(() => {
+            if (window.scrollY >= height) window.scrollY = 0;
+            else window.scrollTo({ top: top++ });
+          }, 60);
+        }, 5000);
       }
     };
   },
