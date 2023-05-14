@@ -24,7 +24,7 @@ export default {
     // 接收页面通信
     wss.onmessage = res => {
       clearInterval(this.intervalTimer);
-      clearTimeout(timeoutTimer);
+      clearTimeout(this.timeoutTimer);
       const { type } = JSON.parse(res.data);
       if (type == "ppt") {
         const { content } = JSON.parse(res.data);
