@@ -65,7 +65,7 @@ export default {
   },
   methods: {
     handleInput(event) {
-      this.player.score = _.floor(parseFloat(event.target.value), 2);
+      this.player.score = _.round(parseFloat(event.target.value), 2);
       event.target.value = "";
       window.localStorage.setItem(PLAYER_KEY, JSON.stringify(this.players));
       event.target.blur();
@@ -79,7 +79,7 @@ export default {
         group.groupScore = 0;
         _.forEach(this.players, player => {
           if (group.groupId == player.groupId)
-            group.groupScore = _.floor(parseFloat(group.groupScore) + parseFloat(player.score), 2);
+            group.groupScore = _.round(parseFloat(group.groupScore) + parseFloat(player.score), 2);
         });
       });
       this.orderedGroups = _.orderBy(this.groups, ["groupScore"], ["desc"]);
@@ -115,10 +115,10 @@ export default {
         group.groupScore = 0;
         _.forEach(this.players, player => {
           if (group.groupId == player.groupId && (player.part == "第一环节" || player.part == "第二环节"))
-            group.groupScore = _.floor(parseFloat(group.groupScore) + parseFloat(player.score), 2);
+            group.groupScore = _.round(parseFloat(group.groupScore) + parseFloat(player.score), 2);
         });
       });
-      this.groupTitle = "一、二环节";
+      this.groupTitle = "第一、第二环节";
       this.orderedGroups = _.orderBy(this.groups, ["groupScore"], ["desc"]);
       this.isPlayer = false;
     },
@@ -143,7 +143,7 @@ export default {
     } else {
       console.log("不存在数据");
       // _.forEach(this.players, player => {
-      //   player.score = _.floor(_.random(10.0, 30.0, true), 2);
+      //   player.score = _.round(_.random(10.0, 30.0, true), 2);
       // });
     }
 
